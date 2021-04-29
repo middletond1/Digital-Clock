@@ -1,6 +1,9 @@
 const docTime = document.querySelector('#time');
 const docDate = document.querySelector('#date');
 const d = new Date();
+let seconds = d.getSeconds().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
+let minutes = d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
+let hours = d.getHours().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
 
 function setDay() {
     let day = d.getDay();
@@ -87,12 +90,20 @@ function setDate() {
 }
 
 function setYear() {
-    return d.getFullYear();
-     
+    return d.getFullYear();  
+}
+
+function setSeconds() {
+    if (seconds < 59) {
+    seconds++
+    } else seconds = 0
+    console.log(seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}));
 }
 
 function printDate() {
     return docDate.textContent = `${setDay()}, ${setMonth()} ${setDate()} ${setYear()}`
 }
 
+
+setInterval(setSeconds, 1000);
 printDate();
