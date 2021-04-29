@@ -87,8 +87,12 @@ function setDate() {
 }
 
 function setYear() {
-    let year = d.getFullYear();
-    return year;
+    return d.getFullYear();
+     
 }
 
-console.log(setDay(), setMonth(), setDate(), setYear());
+function printDate() {
+    return docDate.textContent = `${setDay()}, ${setMonth()} ${setDate()} ${setYear()}`
+}
+
+printDate();
