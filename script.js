@@ -1,9 +1,9 @@
 const docTime = document.querySelector('#time');
 const docDate = document.querySelector('#date');
 const d = new Date();
-let seconds = d.getSeconds().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
-let minutes = d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-let hours = d.getHours().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
+let seconds = d.getSeconds();
+let minutes = d.getMinutes();
+let hours = d.getHours();
 
 function setDay() {
     let day = d.getDay();
@@ -93,23 +93,24 @@ function setYear() {
     return d.getFullYear();  
 }
 
-function setSeconds() {
+function incrementSeconds() {
     if (seconds < 59) {
     seconds++
     } else seconds = 0
     return seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
 }
 
-function setMinutes() {
-    if (seconds === 0 && minutes < 59) {
+function incrementMinutes() {
+    if (seconds === 59 && minutes < 59) {
         minutes++;
-    } else if (seconds === 0 && minutes === 59) {
+    } else if (seconds === 59 && minutes === 59) {
         minutes = 0;
     } else minutes;
     return minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
 }
 
 function hoursToStandard() {
+    let hours = setHours();
     switch (hours) {
         case 13:
             hours = 1
@@ -148,16 +149,30 @@ function hoursToStandard() {
             hours = 12
             break;
     }
-    return hours;
+    return hours.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
 }
 
 function setHours() {
-    hours = hoursToStandard();
+    if (minutes === 59 && seconds === 59 && hours < 24) {
+        hours++;
+    } else if (minutes === 59 && seconds === 59 && hours === 23) {
+        hours = 1;
+    } 
     return hours;
+}
+//Setting a variable in these increment functions will cause them to reset after a minute loop.
+
+function setLatin() {
+    let latin = 'AM';
+    let lHours = d.getHours();
+    if (lHours > 11) {
+        latin = 'PM';
+    };
+    return latin;
 }
 
 function printTime() {
-    return docTime.textContent = `${hours}:${setMinutes()}:${setSeconds()}`
+    return docTime.textContent = `${hoursToStandard()}:${incrementMinutes()}:${incrementSeconds()} ${setLatin()}`
 }
 
 function printDate() {
@@ -167,3 +182,4 @@ function printDate() {
 printTime();
 setInterval(printTime, 1000);
 printDate();
+setInterval(printDate, 1000);
