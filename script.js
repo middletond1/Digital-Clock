@@ -1,96 +1,120 @@
 const docTime = document.querySelector('#time');
 const docDate = document.querySelector('#date');
 const d = new Date();
+let day = d.getDay();
+let month = d.getMonth();
+let date = d.getDate();
+let year = d.getFullYear();
 let seconds = d.getSeconds();
 let minutes = d.getMinutes();
 let hours = d.getHours();
 
-function setDay() {
-    let day = d.getDay();
+function setDisplayDay() {
+    let displayDay = '';
+    if (minutes === 0 && seconds === 0 && hours === 0 && day === 6) {
+        day = 0;
+    } else if (minutes === 0 && seconds === 0 && hours === 0) {
+        day++;
+    } else day;
     switch (day) {
         case 0:
-          day = "Sunday";
+          displayDay = "Sunday";
           break;
         case 1:
-          day = "Monday";
+          displayDay = "Monday";
           break;
         case 2:
-           day = "Tuesday";
+          displayDay = "Tuesday";
           break;
         case 3:
-          day = "Wednesday";
+          displayDay = "Wednesday";
           break;
         case 4:
-          day = "Thursday";
+          displayDay = "Thursday";
           break;
         case 5:
-          day = "Friday";
+          displayDay = "Friday";
           break;
         case 6:
-          day = "Saturday";
+          displayDay = "Saturday";
+          break;
       }
-    return day;
+    return displayDay;
 }
 
 function setMonth() {
-    let month = d.getMonth();
-    switch (month) {
-        case 0:
-            month = 'January';
-            break;
-        case 1:
-            month = 'February';
-            break;
-        case 2:
-            month = 'March';
-            break;
-        case 3:
-            month = 'April';
-            break;
-        case 4:
-            month = 'May';
-            break;
-        case 5:
-            month = 'June';
-            break;
-        case 6:
-            month = 'July';
-            break;
-        case 7:
-            month = 'August';
-            break;
-        case 8:
-            month = 'September';
-            break;
-        case 9:
-            month = 'October';
-            break;
-        case 10:
-            month = 'November';
-            break;
-        case 11:
-            month = 'December';
-            break;
-    }
-    return month;
+    let displayMonth = '';
+        switch (month) {
+            case 0:
+                displayMonth = 'January';
+                break;
+            case 1:
+                displayMonth = 'February';
+                break;
+            case 2:
+                displayMonth = 'March';
+                break;
+            case 3:
+                displayMonth = 'April';
+                break;
+            case 4:
+                displayMonth = 'May';
+                break;
+            case 5:
+                displayMonth = 'June';
+                break;
+            case 6:
+                displayMonth = 'July';
+                break;
+            case 7:
+                displayMonth = 'August';
+                break;
+            case 8:
+                displayMonth = 'September';
+                break;
+            case 9:
+                displayMonth = 'October';
+                break;
+            case 10:
+                displayMonth = 'November';
+                break;
+            case 11:
+                displayMonth = 'December';
+                break;
+        }
+    return displayMonth;
 }
 
 function setDate() {
-    let date = d.getDate();
+    let displayDate = '';
+    if (minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 0 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 2 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 4 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 6 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 7 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 9 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 11) {
+        date = 1;
+    } else if (minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 3 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 5 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 8 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 10) {
+        date = 1;
+    } else if (minutes === 0 && seconds === 0 && hours === 0 && date === 28 && month === 1) {
+        date = 1;
+    } else if (minutes === 0 && seconds === 0 && hours === 0) {
+        date++;
+    } else date;
     if (date === 1 || date === 21 || date === 31) {
-        date += 'st';
+        displayDate = date + 'st';
     } else if (date === 2 || date === 22) {
-        date += 'nd';
+        displayDate = date + 'nd';
     } else if (date === 3 || date === 23) {
-        date += 'rd';
+        displayDate = date + 'rd';
     } else if (date > 3 && date < 21 || date > 23 && date < 31) {
-        date += 'th';
+        displayDate = date + 'th';
     }
-    return date;
-}
-
-function setYear() {
-    return d.getFullYear();  
+    return displayDate;
 }
 
 function incrementSeconds() {
@@ -175,7 +199,7 @@ function printTime() {
 }
 
 function printDate() {
-    return docDate.textContent = `${setDay()}, ${setMonth()} ${setDate()} ${setYear()}`
+    return docDate.textContent = `${setDisplayDay()}, ${setMonth()} ${setDate()} ${year}`
 }
 
 printTime();
