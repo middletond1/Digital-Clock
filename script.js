@@ -2,7 +2,7 @@ const docTime = document.querySelector('#time');
 const docDate = document.querySelector('#date');
 const d = new Date();
 let seconds = d.getSeconds().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
-let minutes = d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
+let minutes = d.getMinutes().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
 let hours = d.getHours().toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
 
 function setDay() {
@@ -97,13 +97,73 @@ function setSeconds() {
     if (seconds < 59) {
     seconds++
     } else seconds = 0
-    console.log(seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}));
+    return seconds.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+}
+
+function setMinutes() {
+    if (seconds === 0 && minutes < 59) {
+        minutes++;
+    } else if (seconds === 0 && minutes === 59) {
+        minutes = 0;
+    } else minutes;
+    return minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+}
+
+function hoursToStandard() {
+    switch (hours) {
+        case 13:
+            hours = 1
+            break;
+        case 14:
+            hours = 2
+            break;
+        case 15:
+            hours = 3
+            break;
+        case 16:
+            hours = 4
+            break;
+        case 17:
+            hours = 5
+            break;
+        case 18:
+            hours = 6
+            break;
+        case 19:
+            hours = 7
+            break;
+        case 20:
+            hours = 8
+            break;
+        case 21:
+            hours = 9
+            break;
+        case 22:
+            hours = 10
+            break;
+        case 23:
+            hours = 11
+            break;
+        case 0:
+            hours = 12
+            break;
+    }
+    return hours;
+}
+
+function setHours() {
+    hours = hoursToStandard();
+    return hours;
+}
+
+function printTime() {
+    return docTime.textContent = `${hours}:${setMinutes()}:${setSeconds()}`
 }
 
 function printDate() {
     return docDate.textContent = `${setDay()}, ${setMonth()} ${setDate()} ${setYear()}`
 }
 
-
-setInterval(setSeconds, 1000);
+printTime();
+setInterval(printTime, 1000);
 printDate();
