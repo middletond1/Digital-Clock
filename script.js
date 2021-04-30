@@ -109,63 +109,62 @@ function incrementMinutes() {
     return minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
 }
 
-function hoursToStandard() {
-    let hours = setHours();
-    switch (hours) {
-        case 13:
-            hours = 1
-            break;
-        case 14:
-            hours = 2
-            break;
-        case 15:
-            hours = 3
-            break;
-        case 16:
-            hours = 4
-            break;
-        case 17:
-            hours = 5
-            break;
-        case 18:
-            hours = 6
-            break;
-        case 19:
-            hours = 7
-            break;
-        case 20:
-            hours = 8
-            break;
-        case 21:
-            hours = 9
-            break;
-        case 22:
-            hours = 10
-            break;
-        case 23:
-            hours = 11
-            break;
-        case 0:
-            hours = 12
-            break;
-    }
-    return hours.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
-}
-
-function setHours() {
-    if (minutes === 59 && seconds === 59 && hours < 24) {
+function incrementHours() {
+    if (minutes === 59 && seconds === 59 && hours < 23) {
         hours++;
     } else if (minutes === 59 && seconds === 59 && hours === 23) {
-        hours = 1;
+        hours = 0;
     } 
     return hours;
 }
 //Setting a variable in these increment functions will cause them to reset after a minute loop.
 
+function hoursToStandard() {
+    let displayHours = incrementHours();
+    switch (displayHours) {
+        case 13:
+            displayHours = 1
+            break;
+        case 14:
+            displayHours = 2
+            break;
+        case 15:
+            displayHours = 3
+            break;
+        case 16:
+            displayHours = 4
+            break;
+        case 17:
+            displayHours = 5
+            break;
+        case 18:
+            displayHours = 6
+            break;
+        case 19:
+            displayHours = 7
+            break;
+        case 20:
+            displayHours = 8
+            break;
+        case 21:
+            displayHours = 9
+            break;
+        case 22:
+            displayHours = 10
+            break;
+        case 23:
+            displayHours = 11
+            break;
+        case 0:
+            displayHours = 12
+            break;
+    }
+    return displayHours.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+}
+
 function setLatin() {
     let latin = 'AM';
-    let lHours = d.getHours();
-    if (lHours > 11) {
+    if (hours > 11) {
         latin = 'PM';
     };
     return latin;
@@ -180,6 +179,6 @@ function printDate() {
 }
 
 printTime();
-setInterval(printTime, 1000);
 printDate();
+setInterval(printTime, 1000);
 setInterval(printDate, 1000);
