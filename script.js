@@ -9,7 +9,7 @@ let seconds = d.getSeconds();
 let minutes = d.getMinutes();
 let hours = d.getHours();
 
-function setDisplayDay() {
+function setDay() {
     let displayDay = '';
     if (minutes === 0 && seconds === 0 && hours === 0 && day === 6) {
         day = 0;
@@ -44,6 +44,30 @@ function setDisplayDay() {
 
 function setMonth() {
     let displayMonth = '';
+    if (minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 0 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 2 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 4 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 6 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 7 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 9) {
+        date = 1;
+        month++;
+    } else if (minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 3 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 5 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 8 || 
+        minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 10) {
+        date = 1;
+        month++;
+    } else if (minutes === 0 && seconds === 0 && hours === 0 && date === 28 && month === 1) {
+        date = 1;
+        month++;
+    } else if (minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 11) {
+        date = 1;
+        month = 0;
+        year++;
+    } else if (minutes === 0 && seconds === 0 && hours === 0 ) {
+        date++;
+    }
         switch (month) {
             case 0:
                 displayMonth = 'January';
@@ -87,24 +111,6 @@ function setMonth() {
 
 function setDate() {
     let displayDate = '';
-    if (minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 0 || 
-        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 2 || 
-        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 4 || 
-        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 6 || 
-        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 7 || 
-        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 9 || 
-        minutes === 0 && seconds === 0 && hours === 0 && date === 31 && month === 11) {
-        date = 1;
-    } else if (minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 3 || 
-        minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 5 || 
-        minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 8 || 
-        minutes === 0 && seconds === 0 && hours === 0 && date === 30 && month === 10) {
-        date = 1;
-    } else if (minutes === 0 && seconds === 0 && hours === 0 && date === 28 && month === 1) {
-        date = 1;
-    } else if (minutes === 0 && seconds === 0 && hours === 0) {
-        date++;
-    } else date;
     if (date === 1 || date === 21 || date === 31) {
         displayDate = date + 'st';
     } else if (date === 2 || date === 22) {
@@ -199,7 +205,7 @@ function printTime() {
 }
 
 function printDate() {
-    return docDate.textContent = `${setDisplayDay()}, ${setMonth()} ${setDate()} ${year}`
+    return docDate.textContent = `${setDay()}, ${setMonth()} ${setDate()} ${year}`
 }
 
 printTime();
