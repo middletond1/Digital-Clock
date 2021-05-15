@@ -3,3 +3,16 @@
     background: darkslategrey;
     color:floralwhite
 }
+
+h1 {
+    font-size: 40px;
+    margin-top: 3em;
+}
+
+#time {
+    font-size: 30px;
+}
+
+#date {
+    font-size: 30px;
+}
