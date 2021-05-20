@@ -4,4 +4,4 @@
 
 #### View it [Here](https://middletond1.github.io/Digital-Clock/)
 
-![](David_Middleton_Digital Clock.png)
+![](https://github.com/middletond1/Digital-Clock/blob/main/img/David_Middleton_Digital%20Clock.png)
